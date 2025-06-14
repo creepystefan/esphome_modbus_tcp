@@ -1,3 +1,5 @@
+# Functioncode   COIL   0x01
+
 external_components:
   - source: github://creepystefan/esphome_tcp
 
