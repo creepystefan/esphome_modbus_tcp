@@ -2,7 +2,7 @@
 
 external_components:
   - source: github://creepystefan/esphome_tcp
-
+    refresh: 0s
 
 sensor:
   - platform: dimplex
