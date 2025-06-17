@@ -9,6 +9,11 @@ sensor:
     port: 502
     functioncode: 4
     register_address: 1021
+    unit_of_measurement: "°C"
+    device_class: "temperature"
+    state_class: "measurement"
+    accuracy_decimals: 2
+
   
   - platform: dimplex
     name: b-voltage
