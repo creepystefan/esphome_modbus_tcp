@@ -27,7 +27,7 @@ void setup() override{
 
 void update() override{
 WiFiClient client;
-    if (!client.connect(host_.c_str(), 502)) {
+    if (!client.connect(host_.c_str(), port_)) {
       ESP_LOGE("modbus_tcp", "Failed to connect to Modbus server %s:%d", host_.c_str(), port_);
       return;
     }
@@ -38,8 +38,8 @@ WiFiClient client;
         0x00, 0x00,  // Protocol ID
         0x00, 0x06,  // Length
         0x01,        // Unit ID
-        //(uint8_t functioncode_),
-        0x01,        // Function Code (COIL)
+        functioncode_,
+        //0x04,        // Function Code (COIL)
         (uint8_t)((register_address_ >> 8) & 0xFF),  // Start Address (High Byte)
         (uint8_t)(register_address_ & 0xFF),        // Start Address (Low Byte)
         0x00, 0x02   // Quantity (Read 2 Registers = 32 bits for FP32)
@@ -96,7 +96,7 @@ protected:
   uint16_t register_address_;
   uint8_t functioncode_;
 //  uint32_t update_interval_;
-  uint32_t port_;
+  uint16_t port_;
   std::string host_;
 
 };
