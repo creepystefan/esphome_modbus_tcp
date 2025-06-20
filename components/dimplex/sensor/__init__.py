@@ -34,7 +34,7 @@ CONFIG_SCHEMA = cv.Schema(
      #   cv.Optional(CONF_UPDATE_INTERVAL, default=1000): cv.int_range(min=500, max=10000),
         }
        ).extend(cv.COMPONENT_SCHEMA)
-       .extend(cv.polling_component_schema("1s")))
+       .extend(cv.polling_component_schema("5s")))
        
 
 
