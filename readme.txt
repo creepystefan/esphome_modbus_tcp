@@ -1,3 +1,6 @@
+https://ipc2u.de/artikel/wissenswertes/detaillierte-beschreibung-des-modbus-tcp-protokolls-mit-befehlsbeispielen/
+
+
 Universal Modbus-TCP esphome
 
 
