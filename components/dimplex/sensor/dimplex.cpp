@@ -43,12 +43,12 @@ if (response[1] != request[1]) {
       ESP_LOGE("modbus_tcp", "Unexpected Transaction ID: 0x%02X", response[1]);
       return;
     }
- //   ESP_LOGD("RX", "Address: %d <<<< %02X%02X %02X%02X %02X%02X %02X %02X %02X %02X%02X ",
- //                     this->register_address_,
- //                     response[0], response[1], response[2], response[3], response[4], 
- //                     response[5], response[6], response[7], response[8], response[9], 
- //                     response[10]
-    //);
+    ESP_LOGD("RX", "Address: %d <<<< %02X%02X %02X%02X %02X%02X %02X %02X %02X %02X%02X ",
+                      this->register_address_,
+                      response[0], response[1], response[2], response[3], response[4], 
+                      response[5], response[6], response[7], response[8], response[9], 
+                      response[10]
+                      );
 
 unsigned int value = (response[9] << 8) | response[10];
 publish_state(value);
@@ -57,13 +57,7 @@ publish_state(value);
 
 void DimplexTCP::dump_config() {
   ESP_LOGCONFIG(TAG, "Address: %d", this->register_address_);
-      ESP_LOGD("TX", "Address: %d >>>> %02X%02X %02X%02X %02X%02X %02X %02X %02X%02X %02X%02X",
-                        this->register_address_,
-                        request[0], request[1], request[2], request[3], request[4]
-                        , request[5], request[6], request[7], request[8]
-                        , request[9], request[10], request[11]
-                        );
-}
+ }
 
 }  // namespace dimplex
 }  // namespace esphome
