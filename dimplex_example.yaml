@@ -20,5 +20,5 @@ sensor:
     name: b-voltage
     host: 192.168.178.46
     functioncode: 4
-    register_address: 1041
+    register_address: 1
   
