@@ -12,14 +12,14 @@ CONF_PORT = 'port'
 
 
 dimplex_binary_sensor_ns = cg.esphome_ns.namespace("dimplex_binary_sensor")
-DimplexTCP = dimplex_binary_sensor_ns.class_("DimplexTCP", binary_sensor.BinarySensor, cg.PollingComponent)
+DimplexTCP_Binary_Sensor = dimplex_binary_sensor_ns.class_("DimplexTCP_Binary_Sensor", binary_sensor.BinarySensor, cg.PollingComponent)
 
 
 CONFIG_SCHEMA = cv.Schema(
-    sensor.sensor_schema(DimplexTCP)
+    binary_sensor.BinarySensor_schema(DimplexTCP_Binary_Sensor)
     .extend(
         {
-        cv.GenerateID(): cv.declare_id(DimplexTCP),
+        cv.GenerateID(): cv.declare_id(DimplexTCP_Binary_Sensor),
         cv.Required(CONF_IP_ADDRESS): cv.ipv4address,
         cv.Optional(CONF_PORT, default=502): cv.int_range(0, 65535),
         cv.Optional(CONF_FUNCTIONCODE, default=4): cv.int_range(min=0, max=10),
