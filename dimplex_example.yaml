@@ -2,19 +2,20 @@ external_components:
   - source: github://creepystefan/esphome_tcp
     refresh: 0s
 
+        # full config with Options
 sensor:
   - platform: dimplex
     name: a-voltage
     host: 192.168.178.46
     port: 502
     functioncode: 4
-    register_address: 1021
+    register_address: 1
     unit_of_measurement: "°C"
     device_class: "temperature"
     state_class: "measurement"
     accuracy_decimals: 2
 
-  
+        # only required
   - platform: dimplex
     name: b-voltage
     host: 192.168.178.46
