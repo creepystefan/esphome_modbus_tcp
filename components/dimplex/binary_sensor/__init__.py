@@ -1,6 +1,7 @@
 import esphome.codegen as cg
 from esphome.components import binary_sensor
 import esphome.config_validation as cv
+from esphome.const import CONF_ID
 
 CODEOWNERS = ["@creepystefan"]
 
@@ -16,7 +17,7 @@ DimplexTCP_Binary_Sensor = dimplex_binary_sensor_ns.class_("DimplexTCP_Binary_Se
 
 
 CONFIG_SCHEMA = cv.Schema(
-    binary_sensor.BinarySensor_schema(DimplexTCP_Binary_Sensor)
+    binary_sensor.binary_sensor_schema(DimplexTCP_Binary_Sensor)
     .extend(
         {
         cv.GenerateID(): cv.declare_id(DimplexTCP_Binary_Sensor),
