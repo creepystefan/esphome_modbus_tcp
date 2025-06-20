@@ -43,8 +43,6 @@ if (response[1] != request[1]) {
       ESP_LOGE("modbus_tcp", "Unexpected Transaction ID: 0x%02X", response[1]);
       return;
     }
-
- 
     ESP_LOGD("RX", "Address: %d <<<< %02X%02X %02X%02X %02X%02X %02X %02X %02X %02X%02X ",
                       this->register_address_,
                       response[0], response[1], response[2], response[3], response[4], 
@@ -55,11 +53,6 @@ unsigned int value = (response[9] << 8) | response[10];
 publish_state(value);
 
 }
-
-
-
-
-
 
 void DimplexTCP::dump_config() {
   ESP_LOGCONFIG(TAG, "Address: %d", this->register_address_);
