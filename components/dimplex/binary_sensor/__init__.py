@@ -1,12 +1,6 @@
 import esphome.codegen as cg
-from esphome.components import sensor
+from esphome.components import binary_sensor
 import esphome.config_validation as cv
-#from esphome.const import (
-    
- #   CONF_ID,
-  #  UNIT_EMPTY,
-  #  ICON_EMPTY
-#)
 
 CODEOWNERS = ["@creepystefan"]
 
@@ -17,8 +11,8 @@ CONF_IP_ADDRESS = 'host'
 CONF_PORT = 'port'
 
 
-dimplex_ns = cg.esphome_ns.namespace("dimplex")
-DimplexTCP = dimplex_ns.class_("DimplexTCP", sensor.Sensor, cg.PollingComponent)
+dimplex_binary_sensor_ns = cg.esphome_ns.namespace("dimplex_binary_sensor")
+DimplexTCP = dimplex_binary_sensor_ns.class_("DimplexTCP", binary_sensor.BinarySensor, cg.PollingComponent)
 
 
 CONFIG_SCHEMA = cv.Schema(
