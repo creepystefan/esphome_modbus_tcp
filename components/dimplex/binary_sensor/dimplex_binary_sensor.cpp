@@ -15,17 +15,14 @@ WiFiClient client;
       return;
     }
 
-  uint8_t request[] = {
-        0x00, 0x08,  // Transaction ID
-        0x00, 0x00,  // Protocol ID
-        0x00, 0x06,  // Length
-        0x01,        // Unit ID
+   uint8_t request[] = {
+        0x00, 0x08, 0x00, 0x00, 0x00, 0x06, 0x01,
         functioncode_,
-        //0x04,        // Function Code (COIL)
-        (uint8_t)((register_address_ >> 8) & 0xFF),  // Start Address (High Byte)
-        (uint8_t)(register_address_ & 0xFF),        // Start Address (Low Byte)
-        0x00, 0x01   // Quantity (Read 2 Registers = 32 bits for FP32)
+        (uint8_t)((register_address_ >> 8) & 0xFF),  
+        (uint8_t)(register_address_ & 0xFF),
+         0x00, 0x01
         };
+    
     ESP_LOGD("TX", "Address-Binary-Sensor: %d >>>> %02X%02X %02X%02X %02X%02X %02X %02X %02X%02X %02X%02X",
                         this->register_address_,
                         request[0], request[1], request[2], request[3], request[4]
