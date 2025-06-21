@@ -3,8 +3,11 @@ https://ipc2u.de/artikel/wissenswertes/detaillierte-beschreibung-des-modbus-tcp-
 
 Universal Modbus-TCP esphome
 
+sensor:
 
-  - platform: dimplex
+  - platform: modbus_tcp_16     register data typ uint_16
+  - platform: modbus_tcp_32     register data typ uint_32
+  - platform: modbus_tcp_float  register data typ float  ( 4 byte )
 
 
 * name:      Name of Sensor
@@ -16,3 +19,9 @@ Universal Modbus-TCP esphome
               * 3 = Input register     (0x03)
               * 4 = Holding register   (0x04)
 * register_address: Register Address from Host
+
+
+
+
+binary_sensor:
+  - platform: modbus_tcp_binary     register data typ uint_8
