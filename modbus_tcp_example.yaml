@@ -1,0 +1,11 @@
+####  NOT FINISHED #####
+#### Port is Optional ( Standard 502 )
+
+
+
+modbus_tcp:
+  id: modbus1
+  host_ip_address: 192.168.178.46
+  host_port: 502
+  unit_id: 1
+#  update_interval: ${update_interval}
