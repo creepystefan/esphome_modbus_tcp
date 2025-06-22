@@ -7,7 +7,7 @@ sensor:
 
   - platform: modbus_tcp_16     register data typ uint_16  ( 2 byte )
   - platform: modbus_tcp_32     register data typ uint_32  ( 4 byte )
-  - platform: modbus_tcp_float  register data typ float    ( 1 byte )
+  - platform: modbus_tcp_float  register data typ float    ( 4 byte )
 
 
 * name:      Name of Sensor
