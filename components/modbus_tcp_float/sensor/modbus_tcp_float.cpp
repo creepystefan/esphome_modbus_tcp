@@ -56,7 +56,7 @@ if (response[1] != request[1]) {
                       response[5], response[6], response[7], response[8], response[9], 
                       response[10], response[11], response[12] 
                       );
-
+float value = decode_float(&response[9]);
 //unsigned int value = (response[9] << 8) | response[10];
 publish_state(value);
 
