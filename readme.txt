@@ -24,4 +24,4 @@ sensor:
 
 
 binary_sensor:
-  - platform: modbus_tcp_binary     register data typ uint_8
+  - platform: modbus_tcp_binary     register data typ uint_8  ( 1 byte ) / 1 bit = 1 or 0
