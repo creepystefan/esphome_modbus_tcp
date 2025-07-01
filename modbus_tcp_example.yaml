@@ -14,6 +14,6 @@ sensor:
     functioncode: 4
     address: 11
   - platform: modbustcpsensor
-    name: A
+    name: B
     functioncode: 3
     address: 9
