@@ -1,11 +1,19 @@
 ####  NOT FINISHED #####
 #### Port is Optional ( Standard 502 )
 
-
-
-modbus_tcp:
+modbustcp:
   id: modbus1
-  host_ip_address: 192.168.178.46
-  host_port: 502
-  unit_id: 1
-#  update_interval: ${update_interval}
+  ip_address: 192.168.178.46
+  port: 501
+  unit_id: 3
+  
+
+sensor:
+  - platform: modbustcp
+    name: A
+    functioncode: 4
+    address: 11
+  - platform: modbustcpsensor
+    name: A
+    functioncode: 3
+    address: 9
