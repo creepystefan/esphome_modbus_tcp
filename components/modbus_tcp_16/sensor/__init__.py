@@ -22,7 +22,7 @@ CONFIG_SCHEMA = cv.Schema(
         cv.GenerateID(): cv.declare_id(ModbusTCP16),
         cv.Required(CONF_IP_ADDRESS): cv.ipv4address,
         cv.Optional(CONF_PORT, default=502): cv.int_range(0, 65535),
-        cv.Optional(CONF_FUNCTIONCODE, default=4): cv.int_range(min=0, max=10),
+        #cv.Optional(CONF_FUNCTIONCODE, default=4): cv.int_range(min=0, max=10),
         cv.Required(CONF_FUNCTIONCODE): cv.int_range(min=0, max=4),
         cv.Required(CONF_REGISTER_ADDRESS): cv.int_,
      #   cv.Optional(CONF_UPDATE_INTERVAL, default=1000): cv.int_range(min=500, max=10000),
