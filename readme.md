@@ -53,7 +53,8 @@ binary_sensor:
   - platform: modbus_tcp_binary  
     name: NAME
     host: 192.168.178.46
-    functioncode: 4
+    port: 502
+    functioncode: 1
     register_address: 1
 ```
 
