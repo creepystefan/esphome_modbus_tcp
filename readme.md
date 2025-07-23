@@ -1,20 +1,11 @@
 # Universal Modbus-TCP esphome
 
-sensor:
+    - platform: modbus_tcp_32     register data typ uint_32  ( 4 byte )
 
-  - platform: modbus_tcp_16     register data typ uint_16  ( 2 byte )
-  - platform: modbus_tcp_32     register data typ uint_32  ( 4 byte )
-  
-
-* name:      Name of Sensor
-* host: IP Adresse IPv4
-* port: OPTIONAL, default: 502
-* functioncode: function code  (allowed 1 - 4 ) 
               * 1 = Coil               (0x01)
               * 2 = Discrete input     (0x02)
               * 3 = Input register     (0x03)
               * 4 = Holding register   (0x04)
-* register_address: Register Address from Host
 
 # EXTERNAL COMPONENT required
 ```yaml
@@ -27,6 +18,17 @@ external_components:
 ```yaml
 sensor:
   - platform: modbus_tcp_16
+    name: NAME
+    host: 192.168.178.46
+    port: 502
+    functioncode: 4
+    register_address: 1
+```
+
+# Modbus TCP uint32 32bit  ( 4 Byte )
+```yaml
+sensor:
+  - platform: modbus_tcp_32
     name: NAME
     host: 192.168.178.46
     port: 502
