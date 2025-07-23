@@ -1,14 +1,10 @@
-https://ipc2u.de/artikel/wissenswertes/detaillierte-beschreibung-des-modbus-tcp-protokolls-mit-befehlsbeispielen/
-
-
-Universal Modbus-TCP esphome
+# Universal Modbus-TCP esphome
 
 sensor:
 
   - platform: modbus_tcp_16     register data typ uint_16  ( 2 byte )
   - platform: modbus_tcp_32     register data typ uint_32  ( 4 byte )
-  - platform: modbus_tcp_float  register data typ float    ( 4 byte )
-
+  
 
 * name:      Name of Sensor
 * host: IP Adresse IPv4
@@ -26,7 +22,7 @@ external_components:
   - source: github://creepystefan/esphome_tcp
     refresh: 0s
 ```
-# Modbus TCP  FLOAT
+# Modbus TCP  FLOAT  ( 4 Byte )
 ```yaml
 sensor:
   - platform: modbus_tcp_float
@@ -52,3 +48,6 @@ sensor:
 binary_sensor:
   - platform: modbus_tcp_binary     register data typ uint_8  ( 1 byte ) / 1 bit = 1 or 0
 ```
+
+# useful link
+https://ipc2u.de/artikel/wissenswertes/detaillierte-beschreibung-des-modbus-tcp-protokolls-mit-befehlsbeispielen/
