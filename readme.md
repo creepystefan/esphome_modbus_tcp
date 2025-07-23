@@ -20,8 +20,29 @@ sensor:
               * 4 = Holding register   (0x04)
 * register_address: Register Address from Host
 
+```yaml
 
-
+external_components:
+  - source: github://creepystefan/esphome_tcp
+    refresh: 0s
+```
+# Modbus TCP  FLOAT
+```yaml
+sensor:
+  - platform: modbus_tcp_float
+    name: NAME
+    host: 192.168.178.46
+    port: 502
+    functioncode: 4
+    register_address: 1
+```
+   
+        # only required
+  - platform: modbus_tcp_float
+    name: NAME
+    host: 192.168.178.46
+    functioncode: 4
+    register_address: 1
 
 
 
