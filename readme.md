@@ -1,9 +1,6 @@
 # Universal Modbus-TCP esphome
-          * ModbusFunction Codes
-              * 1 = Coil               (0x01)
-              * 2 = Discrete input     (0x02)
-              * 3 = Input register     (0x03)
-              * 4 = Holding register   (0x04)
+
+port is an Option / standard 502
 
 # EXTERNAL COMPONENT required
 ```yaml
