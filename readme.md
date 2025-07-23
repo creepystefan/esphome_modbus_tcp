@@ -16,12 +16,13 @@ sensor:
               * 4 = Holding register   (0x04)
 * register_address: Register Address from Host
 
+# EXTERNAL COMPONENT required
 ```yaml
-
 external_components:
   - source: github://creepystefan/esphome_tcp
     refresh: 0s
 ```
+
 # Modbus TCP  FLOAT  ( 4 Byte )
 ```yaml
 sensor:
