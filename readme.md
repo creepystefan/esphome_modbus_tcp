@@ -1,7 +1,5 @@
 # Universal Modbus-TCP esphome
 
-    - platform: modbus_tcp_32     register data typ uint_32  ( 4 byte )
-
               * 1 = Coil               (0x01)
               * 2 = Discrete input     (0x02)
               * 3 = Input register     (0x03)
