@@ -23,6 +23,17 @@ external_components:
     refresh: 0s
 ```
 
+# Modbus TCP uint16 16bit  ( 2 Byte )
+```yaml
+sensor:
+  - platform: modbus_tcp_16
+    name: NAME
+    host: 192.168.178.46
+    port: 502
+    functioncode: 4
+    register_address: 1
+```
+
 # Modbus TCP  FLOAT  ( 4 Byte )
 ```yaml
 sensor:
