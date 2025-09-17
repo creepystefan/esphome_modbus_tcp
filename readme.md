@@ -26,8 +26,9 @@ sensor:
   - platform: modbus_tcp_32
     name: NAME
     host: 192.168.178.46
+    unit_id: 1            # Optional 1-255, default 1
     port: 502             # Optional, default 502
-    functioncode: 4       # Optional, default 4
+    functioncode: 4       # Optional, 1-4, default 4
     register_address: 1
 ```
 
