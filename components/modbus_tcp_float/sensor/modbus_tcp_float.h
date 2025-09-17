@@ -20,6 +20,7 @@ void set_host(const std::string &host) { this->host_ = host; }
 void set_port(uint16_t port) { this->port_ = port; }
 void set_functioncode(uint8_t functioncode) { this->functioncode_ = functioncode; }
 void set_register_address(uint16_t register_address) { this->register_address_ = register_address; }
+void set_unit_id(uint8_t unit_id) { this->unit_id_ = unit_id; }
 
 
 void setup() override{
@@ -42,6 +43,7 @@ void dump_config() override;
 protected:
   uint16_t register_address_;
   uint8_t functioncode_;
+  uint8_t unit_id_;
 //  uint32_t update_interval_;
   uint16_t port_;
   std::string host_;
