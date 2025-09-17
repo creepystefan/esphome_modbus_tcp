@@ -15,8 +15,8 @@ sensor:
   - platform: modbus_tcp_16
     name: NAME
     host: 192.168.178.46
-    port: 502
-    functioncode: 4
+    port: 502             # Optional, default 502
+    functioncode: 4       # Optional, default 4
     register_address: 1
 ```
 
@@ -26,8 +26,8 @@ sensor:
   - platform: modbus_tcp_32
     name: NAME
     host: 192.168.178.46
-    port: 502
-    functioncode: 4
+    port: 502             # Optional, default 502
+    functioncode: 4       # Optional, default 4
     register_address: 1
 ```
 
@@ -37,8 +37,8 @@ sensor:
   - platform: modbus_tcp_float
     name: NAME
     host: 192.168.178.46
-    port: 502
-    functioncode: 4
+    port: 502             # Optional, default 502
+    functioncode: 4       # Optional, default 4
     register_address: 1
 ```
    
@@ -50,8 +50,8 @@ binary_sensor:
   - platform: modbus_tcp_binary  
     name: NAME
     host: 192.168.178.46
-    port: 502
-    functioncode: 1
+    port: 502             # Optional, default 502
+    functioncode: 1       # Optional, default 1
     register_address: 1
 ```
 
