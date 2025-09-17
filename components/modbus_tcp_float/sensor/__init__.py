@@ -26,7 +26,7 @@ CONFIG_SCHEMA = cv.Schema(
         cv.Optional(CONF_FUNCTIONCODE, default=4): cv.int_range(min=1, max=4),
         cv.Optional(CONF_UNIT_ID, default=1): cv.int_range(min=0, max=255),
         cv.Required(CONF_REGISTER_ADDRESS): cv.int_,
-     #   cv.Optional(CONF_UPDATE_INTERVAL, default=1000): cv.int_range(min=500, max=10000),
+     
         }
        ).extend(cv.COMPONENT_SCHEMA)
        .extend(cv.polling_component_schema("1s")))
@@ -42,4 +42,5 @@ async def to_code(config):
     cg.add(var.set_unit_id(config[CONF_UNIT_ID]))
     cg.add(var.set_register_address(config[CONF_REGISTER_ADDRESS]))
     cg.add(var.set_port(config["port"]))
-   # cg.add(var.update_interval(config[CONF_UPDATE_INTERVAL]))
+   
+
