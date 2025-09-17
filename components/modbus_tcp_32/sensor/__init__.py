@@ -11,6 +11,7 @@ CONF_IP_ADDRESS = 'host'
 CONF_PORT = 'port'
 CONF_UNIT_ID = 'unit_id'
 
+
 modbus_tcp_32_ns = cg.esphome_ns.namespace("modbus_tcp_32")
 ModbusTCP32 = modbus_tcp_32_ns.class_("ModbusTCP32", sensor.Sensor, cg.PollingComponent)
 
@@ -23,10 +24,8 @@ CONFIG_SCHEMA = cv.Schema(
         cv.Required(CONF_IP_ADDRESS): cv.ipv4address,
         cv.Optional(CONF_PORT, default=502): cv.int_range(0, 65535),
         cv.Optional(CONF_FUNCTIONCODE, default=4): cv.int_range(min=0, max=10),
-        #cv.Optional(CONF_UNIT_ID, default=1): cv.int_range(min=0, max=256),
-        #cv.Required(CONF_FUNCTIONCODE): cv.int_range(min=0, max=4),
+        cv.Optional(CONF_UNIT_ID, default=1): cv.int_range(min=0, max=255),
         cv.Required(CONF_REGISTER_ADDRESS): cv.int_,
-     #   cv.Optional(CONF_UPDATE_INTERVAL, default=1000): cv.int_range(min=500, max=10000),
         }
        ).extend(cv.COMPONENT_SCHEMA)
        .extend(cv.polling_component_schema("1s")))
@@ -41,4 +40,5 @@ async def to_code(config):
     cg.add(var.set_functioncode(config[CONF_FUNCTIONCODE]))
     cg.add(var.set_register_address(config[CONF_REGISTER_ADDRESS]))
     cg.add(var.set_port(config["port"]))
-   # cg.add(var.update_interval(config[CONF_UPDATE_INTERVAL]))
+    cg.add(var.set_unit_id(config[CONF_UNIT_ID]))
+   
