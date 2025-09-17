@@ -9,7 +9,7 @@ CONF_REGISTER_ADDRESS =  'register_address'
 #CONF_UPDATE_INTERVAL =  'update_interval'
 CONF_IP_ADDRESS = 'host'
 CONF_PORT = 'port'
-CONF_UNIT_ID = 'unitid'
+CONF_UNIT_ID = 'unit_id'
 
 modbus_tcp_32_ns = cg.esphome_ns.namespace("modbus_tcp_32")
 ModbusTCP32 = modbus_tcp_32_ns.class_("ModbusTCP32", sensor.Sensor, cg.PollingComponent)
