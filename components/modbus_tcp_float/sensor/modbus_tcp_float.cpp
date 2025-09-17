@@ -19,12 +19,12 @@ WiFiClient client;
         0x00, 0x08,  // Transaction ID
         0x00, 0x00,  // Protocol ID
         0x00, 0x06,  // Length
-        0x01,        // Unit ID
+        unit_id_,        // Unit ID
         functioncode_,
         //0x04,        // Function Code (COIL)
         (uint8_t)((register_address_ >> 8) & 0xFF),  // Start Address (High Byte)
         (uint8_t)(register_address_ & 0xFF),        // Start Address (Low Byte)
-        0x00, 0x02   // Quantity (Read 2 Registers = 32 bits for FP32)
+        0x00, 0x01   // Quantity (Read 2 Registers = 32 bits for FP32)
         };
     ESP_LOGD("TX", "Address: %d >>>> %02X%02X %02X%02X %02X%02X %02X %02X %02X%02X %02X%02X",
                         this->register_address_,
