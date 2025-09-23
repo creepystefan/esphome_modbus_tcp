@@ -27,7 +27,7 @@ CONFIG_SCHEMA = cv.Schema(
         cv.Optional(CONF_FUNCTIONCODE, default=4): cv.int_range(min=0, max=10),
         cv.Optional(CONF_UNIT_ID, default=1): cv.int_range(min=0, max=255),
         cv.Required(CONF_REGISTER_ADDRESS): cv.int_,
-        cv.Optional(CONF_TIMEOUT, default=100): cv.int_range(0, 1000),
+        cv.Optional(CONF_TIMEOUT, default=100): cv.int_range(0, 2000),
         }
        ).extend(cv.COMPONENT_SCHEMA)
        .extend(cv.polling_component_schema("1s")))
