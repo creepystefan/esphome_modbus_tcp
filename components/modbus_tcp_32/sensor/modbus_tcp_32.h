@@ -38,9 +38,10 @@ protected:
   uint8_t unit_id_;
   uint16_t port_;
   std::string host_;
-
+  uint32_t timeout_{0};
 };
 
 }  // namespace modbus_tcp_32
 }  // namespace esphome
+
 
