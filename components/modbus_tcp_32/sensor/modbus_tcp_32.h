@@ -20,6 +20,7 @@ void set_port(uint16_t port) { this->port_ = port; }
 void set_functioncode(uint8_t functioncode) { this->functioncode_ = functioncode; }
 void set_register_address(uint16_t register_address) { this->register_address_ = register_address; }
 void set_unit_id(uint8_t unit_id) { this->unit_id_ = unit_id; }
+void set_timeout(uint32_t timeout) { this->timeout_ = timeout; }
 
 
 void setup() override{
@@ -42,3 +43,4 @@ protected:
 
 }  // namespace modbus_tcp_32
 }  // namespace esphome
+
