@@ -10,6 +10,7 @@ CONF_REGISTER_ADDRESS =  'register_address'
 CONF_IP_ADDRESS = 'host'
 CONF_PORT = 'port'
 CONF_UNIT_ID = 'unit_id'
+CONF_TIMEOUT = 'timeout'
 
 
 modbus_tcp_32_ns = cg.esphome_ns.namespace("modbus_tcp_32")
@@ -26,6 +27,7 @@ CONFIG_SCHEMA = cv.Schema(
         cv.Optional(CONF_FUNCTIONCODE, default=4): cv.int_range(min=0, max=10),
         cv.Optional(CONF_UNIT_ID, default=1): cv.int_range(min=0, max=255),
         cv.Required(CONF_REGISTER_ADDRESS): cv.int_,
+        cv.Optional(CONF_TIMEOUT, default=100): cv.int_range(0, 1000),
         }
        ).extend(cv.COMPONENT_SCHEMA)
        .extend(cv.polling_component_schema("1s")))
@@ -41,4 +43,4 @@ async def to_code(config):
     cg.add(var.set_register_address(config[CONF_REGISTER_ADDRESS]))
     cg.add(var.set_port(config["port"]))
     cg.add(var.set_unit_id(config[CONF_UNIT_ID]))
-   
+    cg.add(var.set_timeout(config[CONF_TIMEOUT]))
