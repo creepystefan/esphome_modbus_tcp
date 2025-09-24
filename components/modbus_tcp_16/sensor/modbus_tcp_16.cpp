@@ -19,7 +19,7 @@ WiFiClient client;
         0x00, 0x08,  // Transaction ID
         0x00, 0x00,  // Protocol ID
         0x00, 0x06,  // Length
-        0x01,        // Unit ID
+        0x00,        // Unit ID
         functioncode_,
         //0x04,        // Function Code (COIL)
         (uint8_t)((register_address_ >> 8) & 0xFF),  // Start Address (High Byte)
