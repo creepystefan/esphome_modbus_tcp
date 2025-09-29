@@ -58,7 +58,8 @@ binary_sensor:
 ```
 
 
-# Modbus_TCP (nearly same as modbus (rtu)  
+# Modbus_TCP (nearly same as original modbus (rtu)  
+# Not Working 
 ```yaml
 
 modbustcp:
