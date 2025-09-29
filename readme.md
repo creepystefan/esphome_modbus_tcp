@@ -57,5 +57,29 @@ binary_sensor:
     register_address: 1
 ```
 
+
+# Modbus_TCP (nearly same as modbus (rtu)  
+```yaml
+
+modbustcp:
+  - id: modbustesttcp
+    host: 192.168.178.46
+    port: 502
+         
+modbustcp_controller:
+  - id: modbus_device
+    modbustcp_id: modbustesttcp
+    address: 7                  # Unit ID
+
+sensor:
+  - platform: modbustcp_controller
+    name: NAME
+    address: 1021           # Register Address
+    value_type: FP32        # value Type
+    register_type: read     # function code
+
+```
+
+
 # useful link
 https://ipc2u.de/artikel/wissenswertes/detaillierte-beschreibung-des-modbus-tcp-protokolls-mit-befehlsbeispielen/
