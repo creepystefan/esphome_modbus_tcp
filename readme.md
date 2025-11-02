@@ -9,6 +9,34 @@ external_components:
     refresh: 0s
 ```
 
+# Modbus_TCP (nearly same as original modbus (rtu)  
+# Please Test
+```yaml
+
+modbustcp:
+  - id: modbustesttcp
+    host: 192.168.178.46
+    port: 502
+         
+modbustcp_controller:
+  - id: modbus_device
+    modbustcp_id: modbustesttcp
+    address: 1                   # Unit-ID
+
+
+sensor:
+  - platform: modbustcp_controller
+    modbustcp_controller_id: modbus_device
+    name: A-Voltage
+    address: 1021
+    value_type: FP32  
+    register_type: read
+    accuracy_decimals: 2
+
+
+```
+
+
 # Modbus TCP uint16 16bit  ( 2 Byte )
 ```yaml
 sensor:
@@ -58,28 +86,7 @@ binary_sensor:
 ```
 
 
-# Modbus_TCP (nearly same as original modbus (rtu)  
-# Not Working 
-```yaml
 
-modbustcp:
-  - id: modbustesttcp
-    host: 192.168.178.46
-    port: 502
-         
-modbustcp_controller:
-  - id: modbus_device
-    modbustcp_id: modbustesttcp
-    address: 7                  # Unit ID
-
-sensor:
-  - platform: modbustcp_controller
-    name: NAME
-    address: 1021           # Register Address
-    value_type: FP32        # value Type
-    register_type: read     # function code
-
-```
 
 
 # useful link
