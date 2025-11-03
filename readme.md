@@ -19,6 +19,7 @@ modbustcp_controller:
   - id: modbus_device
     modbustcp_id: modbustesttcp
     address: 1                   # Unit-ID
+    update_interval: 5s   #default 60sec
 
 sensor:
   - platform: modbustcp_controller
