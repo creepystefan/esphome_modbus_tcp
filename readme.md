@@ -29,6 +29,13 @@ sensor:
     register_type: read
     accuracy_decimals: 2
 
+binary_sensor:
+  - platform: modbustcp_controller
+    modbustcp_controller_id: modbus_device
+    name: "Error status"
+    register_type: read
+    address: 0x3200
+
 
 ```
 
