@@ -7,7 +7,7 @@
 namespace esphome {
 namespace modbustcp {
 
-static const char *const TAG = "modbustcp";
+static const char *const TAG = "modbus_tcp";
 
 void ModbusTCP::setup() {
      }
@@ -167,7 +167,7 @@ void ModbusTCP::send(uint8_t address, uint8_t function_code, uint16_t start_addr
   }
 */
    if (!client.connect(host_.c_str(), port_)) {
-      ESP_LOGE("modbus_tcp", "Failed to connect to Modbus server %s:%d", host_.c_str(), port_);
+      ESP_LOGE(TAG, "Failed to connect to Modbus server %s:%d", host_.c_str(), port_);
       return;
     }
  std::string res1;
