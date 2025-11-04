@@ -37,6 +37,16 @@ binary_sensor:
     register_type: read
     address: 0x3200
 
+switch:
+  - platform: modbustcp_controller
+    modbustcp_controller_id: modbus_device 
+    id: testswitch
+    register_type: coil
+    address: 2
+    name: "testswitch"
+    bitmask: 1
+
+
 
 ```
 
