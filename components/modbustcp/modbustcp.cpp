@@ -198,15 +198,12 @@ void ModbusTCP::send_raw(const std::vector<uint8_t> &payload) {
   if (payload.empty()) {
     return;
   }
-
- // this->write_array(payload);
- // this->write_byte(crc & 0xFF);
- // this->write_byte((crc >> 8) & 0xFF);
-//  this->flush();
+  this->client.write(reinterpret_cast<const char*>(payload.data()), sizeof(payload));
+  this->clear();
   waiting_for_response = payload[0];
-//  ESP_LOGV(TAG, "Modbus write raw: %s", format_hex_pretty(payload).c_str());
+  ESP_LOGV(TAG, "Modbus write raw: %s", format_hex_pretty(payload).c_str());
   last_send_ = millis();
-}
+ }
 
 }  // namespace modbustcp
 }  // namespace esphome
