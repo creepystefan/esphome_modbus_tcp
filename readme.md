@@ -6,6 +6,12 @@ port is an Option / standard 502
 # Modbus_TCP (nearly same as original modbus (rtu)  
 
 ```yaml
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+
 external_components:
   - source: github://creepystefan/esphome_tcp
     refresh: 0s
