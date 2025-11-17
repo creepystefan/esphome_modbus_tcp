@@ -2,7 +2,6 @@
 #include "esphome/core/application.h"
 #include "esphome/core/helpers.h"
 #include "esphome/core/log.h"
-//#include "asynctcp.h"
 
 namespace esphome {
 namespace modbustcp {
