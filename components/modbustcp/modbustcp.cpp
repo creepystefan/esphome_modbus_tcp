@@ -65,6 +65,12 @@ if ((byte1[7] & 0x80) == 0x80) {
  for (auto *device : this->devices_) {
         device->on_modbus_data(data);
      }
+   if (now - this->last_send_ > send_wait_time_) {
+      if (waiting_for_response > 0) {
+        ESP_LOGD(TAG, "Stop waiting for response from %d", waiting_for_response);
+      }
+      waiting_for_response = 0;
+    }
  }
 }
 
@@ -174,13 +180,14 @@ void ModbusTCP::send(uint8_t address, uint8_t function_code, uint16_t start_addr
 res1 += buf1;
 res1 += ":"; 
 }
-    client.write(reinterpret_cast<const char*>(data_send.data()), sizeof(data_send));
+    this->client.write(reinterpret_cast<const char*>(data_send.data()), sizeof(data_send));
     ESP_LOGD(TAG, ">>> %02X%02X %02X%02X %02X%02X %02X %02X %02X%02X %02X%02X %s",
                    data_send[0], data_send[1],  data_send[2], data_send[3], data_send[4], data_send[5],
                    data_send[6], data_send[7],  data_send[8], data_send[9], data_send[10], data_send[11], res1.c_str());
-    
 
-//    delay(200);
+  this->client.clear();
+
+  waiting_for_response = address;
   last_send_ = millis();
 }
 // Helper function for lambdas
