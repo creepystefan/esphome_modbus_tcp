@@ -16,11 +16,10 @@ void ModbusTCP::loop() {
 
  while (this->client.available()) {
   uint8_t byte1[256];
-  //uint8_t byte = this->client.read(byte1, sizeof(byte1));
-   this->client.read(byte1, sizeof(byte1));
+  this->client.read(byte1, sizeof(byte1));
   
   std::string res;
-    char buf[5];
+  char buf[5];
   size_t len = byte1[8];
   for (size_t i = 9; i < len + 9; i++) {
    sprintf(buf, "%02X", byte1[i]);
