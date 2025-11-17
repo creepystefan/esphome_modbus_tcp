@@ -199,7 +199,7 @@ void ModbusTCP::send_raw(const std::vector<uint8_t> &payload) {
     return;
   }
   this->client.write(reinterpret_cast<const char*>(payload.data()), sizeof(payload));
-  this->clear();
+  this->client.clear();
   waiting_for_response = payload[0];
   ESP_LOGV(TAG, "Modbus write raw: %s", format_hex_pretty(payload).c_str());
   last_send_ = millis();
