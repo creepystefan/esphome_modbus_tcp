@@ -9,16 +9,13 @@ namespace modbustcp {
 
 static const char *const TAG = "modbus_tcp";
 
-void ModbusTCP::setup() {
-     }
+void ModbusTCP::setup() {}
 
 void ModbusTCP::loop() {
 
   const uint32_t now = App.get_loop_component_start_time();
 
  while (this->client.available()) {
-  
-  
   uint8_t byte1[256];
   uint8_t byte = this->client.read(byte1, sizeof(byte1));
   
