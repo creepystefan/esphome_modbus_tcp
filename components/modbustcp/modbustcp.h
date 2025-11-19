@@ -2,8 +2,6 @@
 
 #include "esphome/core/component.h"
 #include <WiFiClient.h>
-//#include "esphome/components/modbustcp/modbustcp_definitions.h"
-//#include "socket.h"
 #include "AsyncTCP.h"
 #include <vector>
 
