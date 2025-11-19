@@ -14,7 +14,9 @@ CONF_PORT = 'port'
 modbustcp_ns = cg.esphome_ns.namespace("modbustcp")
 ModbusTCP = modbustcp_ns.class_("ModbusTCP", cg.Component)
 ModbusDevice = modbustcp_ns.class_("ModbusDevice")
+
 MULTI_CONF = True
+AUTO_LOAD = ["async_tcp"]
 
 CONF_MODBUSTCP_ID = "modbustcp_id"
 CONF_SEND_WAIT_TIME = "send_wait_time"
