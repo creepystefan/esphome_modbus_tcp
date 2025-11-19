@@ -2,7 +2,7 @@
 
 #include "esphome/core/component.h"
 #include <WiFiClient.h>
-
+#include "AsyncTCP.h"
 #include <vector>
 
 namespace esphome {
