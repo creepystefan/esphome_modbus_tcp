@@ -115,16 +115,14 @@ void ModbusTCP::send(uint8_t address, uint8_t function_code, uint16_t start_addr
      data_send.push_back(start_address >> 8);
      data_send.push_back(start_address >> 0);
     // function nicht 5 oder nicht 6
-     if (function_code != ModbusFunctionCode::WRITE_SINGLE_COIL &&
-        function_code != ModbusFunctionCode::WRITE_SINGLE_REGISTER) {
+     if (function_code != 0x05 && function_code != 0x06) {
       data_send.push_back(number_of_entities >> 8);
       data_send.push_back(number_of_entities >> 0);
     }
   
 
   if (payload != nullptr) {
-    if (function_code == ModbusFunctionCode::WRITE_MULTIPLE_COILS ||
-        function_code == ModbusFunctionCode::WRITE_MULTIPLE_REGISTERS) {  // Write multiple
+    if (function_code == 0x0F || function_code == 0x17) {  
       data_send.push_back(payload_len);                                        // Byte count is required for write
     } else {
       payload_len = 2;  // Write single register or coil
