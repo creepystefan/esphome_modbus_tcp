@@ -2,6 +2,8 @@
 
 #include "esphome/core/component.h"
 #include <WiFiClient.h>
+//#include "esphome/components/modbustcp/modbustcp_definitions.h"
+//#include "socket.h"
 #include "AsyncTCP.h"
 #include <vector>
 
@@ -34,14 +36,18 @@ class ModbusTCP :  public Component {
   void set_send_wait_time(uint16_t time_in_ms) { send_wait_time_ = time_in_ms; }
   void set_host(const std::string &host) { this->host_ = host; }
   void set_port(uint16_t port) { this->port_ = port; }
- 
+  
+  bool server_ready_ = false;
+  bool client_ready_ = false;
+
+  void ensure_tcp_server();
+  void ensure_tcp_client();
+
  protected:
  
-
+  
   //bool parse_modbus_byte_(uint8_t byte);
   uint16_t send_wait_time_{250};
-  //std::vector<uint8_t> rx_buffer_;
-  //std::vector<uint8_t> rx_buffer_1;
   uint32_t last_modbus_byte_{0};
   uint32_t last_send_{0};
   std::vector<ModbusDevice *> devices_;
@@ -49,6 +55,7 @@ class ModbusTCP :  public Component {
   WiFiClient client;
   uint16_t port_;
   std::string host_;
+  AsyncClient tcp_client;
    
 };
 
@@ -75,6 +82,8 @@ class ModbusDevice {
   }
   // If more than one device is connected block sending a new command before a response is received
   bool waiting_for_response() { return parent_->waiting_for_response != 0; }
+
+    
 
  protected:
   friend ModbusTCP;
