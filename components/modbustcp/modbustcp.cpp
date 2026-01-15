@@ -23,8 +23,8 @@ void ModbusTCP::loop() {
   this->client.clear();
   std::string res;
   char buf[5];
-  size_t len = byte1[8];
-  for (size_t i = 9; i < len + 9; i++) {
+  size_t datalen = byte1[8];
+  for (size_t i = 9; i < datalen + 9; i++) {
    sprintf(buf, "%02X", byte1[i]);
    res += buf;
    res += ":"; 
@@ -56,8 +56,8 @@ if ((byte1[7] & 0x80) == 0x80) {
     return;
   }
   
- uint8_t bytelen_len = 9;
-  std::vector<uint8_t> data(byte1 + bytelen_len, byte1 + bytelen_len + 9);
+ //uint8_t bytelen_len = 9;
+  std::vector<uint8_t> data(byte1 + bytelen_len, byte1 + bytelen_len + datalen);
 
   ESP_LOGV(TAG, "Incomming Data %02X:%02X:%02X:%02X:%02X:%02X:%02X:%02X:%02X",
                       data[0], data[1], data[2], data[3], data[4], 
