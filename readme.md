@@ -22,13 +22,16 @@ esp32:
   framework:
     type: arduino
 ```
+# for modbus TCP
 ```yaml
 modbus:
   - id: modbustesttcp
     host: 192.168.178.46
     port: 502
-```
+
 in modbus_controller:  address = UNIT ID
+```
+
 
 
 
