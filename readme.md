@@ -9,6 +9,8 @@ port is an Option / standard 502
 external_components:
   - source: github://creepystefan/esphome_tcp
     refresh: 0s
+esphome:
+  min_version: 2025.11.0
 ```
 # for esp8266
 ```yaml
