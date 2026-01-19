@@ -9,15 +9,17 @@ port is an Option / standard 502
 external_components:
   - source: github://creepystefan/esphome_tcp
     refresh: 0s
-
+```
+```yaml
 esp8266:
   board: YOURBOARDVARIANT
-
+```
+```yaml
 esp32:
   board: esp32dev
   framework:
     type: arduino
-
+```
 modbustcp:
   - id: modbustesttcp
     host: 192.168.178.46
