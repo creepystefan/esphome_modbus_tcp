@@ -51,12 +51,12 @@ void Modbus::loop() {
 bool Modbus::parse_modbus_byte_(uint8_t byte[256]) {
   uint8_t bytelen_len = 9;
   size_t data_len = byte[8];
+  uint8_t address = byte[6];
+  uint8_t function_code = byte[7];
   
   std::vector<uint8_t> data(byte + bytelen_len, byte + bytelen_len + bytelen_len + data_len);
   bool found = false;
-  uint8_t address = byte[6];
-  uint8_t function_code = byte[7];
-
+  /*
  // logging onyl DATA Bytes
 std::string resdata;
   char bufdata[5];
@@ -67,7 +67,7 @@ std::string resdata;
    resdata += ":"; 
   }
   ESP_LOGD(TAG, "data %s ", resdata.c_str());
-
+*/
 
   for (auto *device : this->devices_) {
     if (device->address_ == address) {
