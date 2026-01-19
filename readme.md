@@ -10,10 +10,12 @@ external_components:
   - source: github://creepystefan/esphome_tcp
     refresh: 0s
 ```
+# for esp8266
 ```yaml
 esp8266:
   board: YOURBOARDVARIANT
 ```
+#for esp32 / ONLY Framework ARDUINO
 ```yaml
 esp32:
   board: esp32dev
