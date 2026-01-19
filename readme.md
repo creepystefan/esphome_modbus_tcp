@@ -28,13 +28,16 @@ modbus:
   - id: modbustesttcp
     host: 192.168.178.46
     port: 502
+```
+alle Components orignal from ESPHOME
 
 in modbus_controller:  address = UNIT ID
-```
-
-
-
-
+platform: modbus_controller
+sensor
+number
+switch
+textsensor
+....
 
 
 # useful link
