@@ -10,6 +10,9 @@ external_components:
   - source: github://creepystefan/esphome_tcp
     refresh: 0s
 
+esp8266:
+  board: YOURBOARDVARIANT
+
 esp32:
   board: esp32dev
   framework:
