@@ -18,7 +18,7 @@ esp8266:
 # for esp32 / ONLY Framework ARDUINO
 ```yaml
 esp32:
-  board: esp32dev
+  board: esp32dev / YOURBOARDVARIANT
   framework:
     type: arduino
 ```
