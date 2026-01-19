@@ -2,10 +2,18 @@
 
 #include "esphome/core/component.h"
 #include <WiFiClient.h>
-#ifdef USE_ESP32
-#include "AsyncTCP.h"
-#endif
 #include <vector>
+
+#if defined(ESP32)
+#include <AsyncTCP.h>
+#elif defined(ESP8266)
+#include <ESPAsyncTCP.h>
+#else
+#error Platform not supported
+#endif
+
+
+
 
 namespace esphome {
 namespace modbustcp {
