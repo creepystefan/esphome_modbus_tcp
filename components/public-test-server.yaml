@@ -1,0 +1,68 @@
+modbus:
+  - id: modbustesttcp
+    #host: 192.168.178.46
+    host: 45.8.248.56
+   
+
+modbus_controller:
+  - id: modbus_device
+    modbus_id: modbustesttcp
+    address: 10            # Unit-ID
+    update_interval: 10s   #default 60sec
+
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: modbus_device
+    name: YEAR
+    address: 31
+    value_type: U_WORD
+    register_type: read
+    
+  - platform: modbus_controller
+    modbus_controller_id: modbus_device
+    name: Month
+    address: 32
+    value_type: U_WORD
+    register_type: read
+    
+  - platform: modbus_controller
+    modbus_controller_id: modbus_device
+    name: Day
+    address: 33
+    value_type: U_WORD
+    register_type: read
+
+  - platform: modbus_controller
+    modbus_controller_id: modbus_device
+    name: Hour
+    address: 34
+    value_type: U_WORD
+    register_type: read
+
+  - platform: modbus_controller
+    modbus_controller_id: modbus_device
+    name: Minute
+    address: 35
+    value_type: U_WORD
+    register_type: read
+    
+  - platform: modbus_controller
+    modbus_controller_id: modbus_device
+    name: Second
+    address: 36
+    value_type: U_WORD
+    register_type: read
+
+  - platform: modbus_controller
+    modbus_controller_id: modbus_device
+    name: Day of Week
+    address: 37
+    value_type: U_WORD
+    register_type: read
+
+  - platform: modbus_controller
+    modbus_controller_id: modbus_device
+    name: Time Zone UTC
+    address: 38
+    value_type: U_WORD
+    register_type: read
