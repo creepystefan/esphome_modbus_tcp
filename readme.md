@@ -30,6 +30,7 @@ modbus:
   - id: modbustesttcp
     host: 192.168.178.46
     port: 502
+    send_wait_time: 250ms   # 250ms is default
 ```
 alle Components orignal from ESPHOME
 
