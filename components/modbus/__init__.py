@@ -1,0 +1,62 @@
+from __future__ import annotations
+
+from typing import Literal
+
+from esphome import pins
+import esphome.codegen as cg
+import esphome.config_validation as cv
+from esphome.const import CONF_ADDRESS, CONF_ID
+import esphome.final_validate as fv
+
+CONF_IP_ADDRESS = 'host'
+CONF_PORT = 'port'
+
+modbus_ns = cg.esphome_ns.namespace("modbus")
+Modbus = modbus_ns.class_("Modbus", cg.Component)
+ModbusDevice = modbus_ns.class_("ModbusDevice")
+
+MULTI_CONF = True
+AUTO_LOAD = ["async_tcp"]
+
+CONF_MODBUS_ID = "modbus_id"
+CONF_SEND_WAIT_TIME = "send_wait_time"
+
+CONFIG_SCHEMA = (
+    cv.Schema(
+        {
+            cv.GenerateID(): cv.declare_id(Modbus),
+            cv.Required(CONF_IP_ADDRESS): cv.ipv4address,
+            cv.Optional(CONF_PORT, default=502): cv.int_range(0, 65535),
+            cv.Optional(
+                CONF_SEND_WAIT_TIME, default="250ms"
+            ): cv.positive_time_period_milliseconds,
+        }
+    )
+    .extend(cv.COMPONENT_SCHEMA)
+)
+
+
+async def to_code(config):
+    cg.add_global(modbus_ns.using)
+    var = cg.new_Pvariable(config[CONF_ID])
+    await cg.register_component(var, config)
+    cg.add(var.set_host(str(config[CONF_IP_ADDRESS])))
+    cg.add(var.set_port(config["port"]))
+    cg.add(var.set_send_wait_time(config[CONF_SEND_WAIT_TIME]))
+   
+def modbus_device_schema(default_address):
+    schema = {
+        cv.GenerateID(CONF_MODBUS_ID): cv.use_id(Modbus),
+    }
+    if default_address is None:
+        schema[cv.Required(CONF_ADDRESS)] = cv.hex_uint8_t
+    else:
+        schema[cv.Optional(CONF_ADDRESS, default=default_address)] = cv.hex_uint8_t
+    return cv.Schema(schema)
+
+
+async def register_modbus_device(var, config):
+    parent = await cg.get_variable(config[CONF_MODBUS_ID])
+    cg.add(var.set_parent(parent))
+    cg.add(var.set_address(config[CONF_ADDRESS]))
+    cg.add(parent.register_device(var))
