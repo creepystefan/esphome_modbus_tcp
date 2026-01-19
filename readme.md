@@ -20,6 +20,7 @@ esp32:
   framework:
     type: arduino
 ```
+```yaml
 modbustcp:
   - id: modbustesttcp
     host: 192.168.178.46
