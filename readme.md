@@ -15,7 +15,7 @@ external_components:
 esp8266:
   board: YOURBOARDVARIANT
 ```
-#for esp32 / ONLY Framework ARDUINO
+# for esp32 / ONLY Framework ARDUINO
 ```yaml
 esp32:
   board: esp32dev
