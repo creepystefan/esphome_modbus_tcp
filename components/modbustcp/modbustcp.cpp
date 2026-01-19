@@ -20,7 +20,7 @@ void ModbusTCP::loop() {
   while (this->client.available()) {
   uint8_t byte1[256];
   this->client.read(byte1, sizeof(byte1));
-  this->client.clear();
+  //this->client.clear();
   std::string res;
   char buf[5];
   size_t datalen = byte1[8];
