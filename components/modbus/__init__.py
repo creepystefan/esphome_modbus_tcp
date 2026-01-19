@@ -17,6 +17,7 @@ ModbusDevice = modbus_ns.class_("ModbusDevice")
 
 MULTI_CONF = True
 AUTO_LOAD = ["async_tcp"]
+CODEOWNERS = ["@creepystefan"]
 
 CONF_MODBUS_ID = "modbus_id"
 CONF_SEND_WAIT_TIME = "send_wait_time"
