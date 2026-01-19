@@ -2,7 +2,9 @@
 
 #include "esphome/core/component.h"
 #include <WiFiClient.h>
+#ifdef USE_ESP32
 #include "AsyncTCP.h"
+#endif
 #include <vector>
 
 namespace esphome {
