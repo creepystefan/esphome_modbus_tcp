@@ -56,8 +56,8 @@ if ((byte1[7] & 0x80) == 0x80) {
     return;
   }
   
- //uint8_t bytelen_len = 9;
-  std::vector<uint8_t> data(byte1 + bytelen_len, byte1 + bytelen_len + datalen);
+  uint8_t bytelen_len = 9;
+  std::vector<uint8_t> data(byte1 + bytelen_len, byte1 + bytelen_len + bytelen_len);
 
   ESP_LOGV(TAG, "Incomming Data %02X:%02X:%02X:%02X:%02X:%02X:%02X:%02X:%02X",
                       data[0], data[1], data[2], data[3], data[4], 
