@@ -1,8 +1,4 @@
 # Universal Modbus-TCP esphome
-
-port is an Option / standard 502
-
-
 # Modbus_TCP (nearly same as original modbus (rtu)  
 
 # for esp8266
