@@ -28,11 +28,11 @@ esp32:
 ```yaml
 modbus:
   - id: modbustesttcp
-    host: 192.168.178.46
-    port: 502               # 502 is default
-    send_wait_time: 250ms   # 250ms is default
+    host: 192.168.178.46    # Required
+    port: 502               # Optional 502 is default
+    send_wait_time: 250ms   # Optional 250ms is default
 ```
-alle Components orignal from ESPHOME
+all Components orignal from ESPHOME
 
 in modbus_controller:  address = UNIT ID
 platform: modbus_controller
