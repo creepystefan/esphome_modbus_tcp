@@ -5,13 +5,6 @@ port is an Option / standard 502
 
 # Modbus_TCP (nearly same as original modbus (rtu)  
 
-```yaml
-external_components:
-  - source: github://creepystefan/esphome_tcp
-    refresh: 0s
-esphome:
-  min_version: 2025.11.0
-```
 # for esp8266
 ```yaml
 esp8266:
@@ -26,6 +19,12 @@ esp32:
 ```
 # for modbus TCP
 ```yaml
+external_components:
+  - source: github://creepystefan/esphome_tcp
+    refresh: 0s
+esphome:
+  min_version: 2025.11.0
+
 modbus:
   - id: modbustesttcp
     host: 192.168.178.46    # Required
