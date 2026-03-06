@@ -40,3 +40,4 @@ textsensor
 
 # useful link
 https://ipc2u.de/artikel/wissenswertes/detaillierte-beschreibung-des-modbus-tcp-protokolls-mit-befehlsbeispielen/
+# https://github.com/Gucioo/esphome_modbus_tcp_master
