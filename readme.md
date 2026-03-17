@@ -20,6 +20,9 @@ external_components:
     refresh: 0s
 esphome:
   min_version: 2025.11.0
+  libraries:
+  - WiFi
+
 
 modbus:
   - id: modbustesttcp
