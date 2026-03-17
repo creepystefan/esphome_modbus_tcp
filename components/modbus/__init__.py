@@ -8,7 +8,7 @@ import esphome.config_validation as cv
 from esphome.const import CONF_ADDRESS, CONF_ID
 import esphome.final_validate as fv
 
-cg.add_library('WiFi', '')
+#cg.add_library('WiFi', '')
 
 CONF_IP_ADDRESS = 'host'
 CONF_PORT = 'port'
