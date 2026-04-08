@@ -1,31 +1,19 @@
 # Universal Modbus-TCP esphome
 # Modbus_TCP (nearly same as original modbus (rtu)  
 
-# for esp8266
-```yaml
-esp8266:
-  board: YOURBOARDVARIANT
-```
-# for esp32 / ONLY Framework ARDUINO
-```yaml
-esp32:
-  board: esp32dev / YOURBOARDVARIANT
-  framework:
-    type: arduino
-```
+# Framework IDF or Arduino
+
 # for modbus TCP
 ```yaml
 external_components:
   - source: github://creepystefan/esphome_tcp
     refresh: 0s
 esphome:
-  min_version: 2025.11.0
-  libraries:
-  - WiFi
-
-
+  min_version: 2026.2.4
+  
 modbus:
   - id: modbustesttcp
+    type: TCP               # RTU no use please
     host: 192.168.178.46    # Required
     port: 502               # Optional 502 is default
     send_wait_time: 250ms   # Optional 250ms is default
