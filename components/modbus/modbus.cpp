@@ -251,19 +251,18 @@ void Modbus::dump_config() {
     }
   }
 
-float Modbus::get_setup_priority() const { return setup_priority::AFTER_WIFI; }
+float Modbus::get_setup_priority() const { 
+  if (tcp_or_rtu_) {
+  return setup_priority::AFTER_WIFI;
+  } else {
+    return setup_priority::BUS - 1.0f;
+  }
+  }
 
 void Modbus::send(uint8_t address, uint8_t function_code, uint16_t start_address, uint16_t number_of_entities, uint8_t payload_len, const uint8_t *payload) {
   static const size_t MAX_VALUES = 128;
  const uint32_t now = App.get_loop_component_start_time();
 
-  // Only check max number of registers for standard function codes
-  // Some devices use non standard codes like 0x43
-  //if (number_of_entities > MAX_VALUES && function_code <= 0x10) {
-  //  ESP_LOGE(TAG, "send too many values %d max=%zu", number_of_entities, MAX_VALUES);
-  //  return;
-  //}
- 
  std::vector<uint8_t> data_send;
 if (tcp_or_rtu_) { 
       Transaction_Identifier++;
@@ -280,14 +279,17 @@ if (tcp_or_rtu_) {
     }  
      data_send.push_back(address);
      data_send.push_back(function_code);
-     data_send.push_back(start_address >> 8);
-     data_send.push_back(start_address >> 0);
+     if (this->role == ModbusRole::CLIENT) {
+       data_send.push_back(start_address >> 8);
+       data_send.push_back(start_address >> 0);
+        if (function_code != ModbusFunctionCode::WRITE_SINGLE_COIL &&
+        function_code != ModbusFunctionCode::WRITE_SINGLE_REGISTER) {
     // function nicht 5 oder nicht 6
-     if (function_code != 0x05 && function_code != 0x06) {
+     //if (function_code != 0x05 && function_code != 0x06) {
       data_send.push_back(number_of_entities >> 8);
       data_send.push_back(number_of_entities >> 0);
      }
-  
+    }
 
   if (payload != nullptr) {
     if (function_code == 0x0F || function_code == 0x17) {  // Write multiple
@@ -299,6 +301,7 @@ if (tcp_or_rtu_) {
       data_send.push_back(payload[i]);
     }
   }
+    if (tcp_or_rtu_) {
      std::string res1;
      char buf1[5];
      size_t len1 = 11; 
@@ -307,16 +310,14 @@ if (tcp_or_rtu_) {
      res1 += buf1;
      res1 += ":";
      }
-    
+  
     if (connected_) {
-      
-      
     client_->write(reinterpret_cast<const char*>(data_send.data()), sizeof(data_send)); 
     ESP_LOGD(TAG, ">>> %02X%02X %02X%02X %02X%02X %02X %02X %02X%02X %02X%02X %s",
                    data_send[0], data_send[1],  data_send[2], data_send[3], data_send[4], data_send[5],
                    data_send[6], data_send[7],  data_send[8], data_send[9], data_send[10], data_send[11], res1.c_str());
     }
-    
+  }
 waiting_for_response_ = address;
 last_send_ = millis();
 
