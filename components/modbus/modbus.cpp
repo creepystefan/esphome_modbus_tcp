@@ -268,9 +268,10 @@ if (tcp_or_rtu_) {
       Transaction_Identifier++;
       data_send.push_back(Transaction_Identifier >> 8);
       data_send.push_back(Transaction_Identifier >> 0);
-      data_send.push_back(0x00);
-      data_send.push_back(0x00);
-      data_send.push_back(0x00);
+      data_send.insert(data_send.end(), {0x00, 0x00, 0x00});
+      //data_send.push_back(0x00);
+      //data_send.push_back(0x00);
+      //data_send.push_back(0x00);
       if (payload != nullptr) { 
         data_send.push_back(0x04 + payload_len);
       }else {
