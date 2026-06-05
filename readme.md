@@ -10,13 +10,23 @@ external_components:
     refresh: 0s
 esphome:
   min_version: 2026.2.4
-  
+
+uart:   # from original esphome
+  tx_pin: GPIO for TX
+  rx_pin: GPIO for RX
+  baud_rate: 9600
+
 modbus:
-  - id: modbustesttcp
+  - id: modbustest_tcp      # you can change to your id
     type: TCP               # RTU no use please
     host: 192.168.178.46    # Required
     port: 502               # Optional 502 is default
     send_wait_time: 250ms   # Optional 250ms is default
+
+  - id: modbustest_rtu      # you can change to your id
+    type: RTU               # RTU no use please
+    send_wait_time: 250ms   # Optional 250ms is default
+    
 ```
 all Components orignal from ESPHOME
 
