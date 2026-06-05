@@ -1,9 +1,6 @@
 # Universal Modbus-TCP esphome
-# Modbus_TCP (nearly same as original modbus (rtu)  
-
 # Framework IDF or Arduino
-
-# for modbus TCP
+# for modbus TCP and RTU
 ```yaml
 external_components:
   - source: github://creepystefan/esphome_tcp
