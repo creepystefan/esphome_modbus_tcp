@@ -18,13 +18,14 @@ uart:   # from original esphome
 
 modbus:
   - id: modbustest_tcp      # you can change to your id
-    type: TCP               # RTU no use please
+    type: TCP               # TCP for TCP connection
     host: 192.168.178.46    # Required
     port: 502               # Optional 502 is default
     send_wait_time: 250ms   # Optional 250ms is default
 
   - id: modbustest_rtu      # you can change to your id
-    type: RTU               # RTU no use please
+    uart_id:          ### ID to uart ID
+    type: RTU               # RTU for Uart RTU connection
     send_wait_time: 250ms   # Optional 250ms is default
     
 ```
