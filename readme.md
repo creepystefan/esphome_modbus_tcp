@@ -12,9 +12,10 @@ esphome:
   min_version: 2026.2.4
 
 uart:   # from original esphome
-  tx_pin: GPIO for TX
-  rx_pin: GPIO for RX
-  baud_rate: 9600
+  - id: uartid
+    tx_pin: GPIO for TX
+    rx_pin: GPIO for RX
+    baud_rate: 9600
 
 modbus:
   - id: modbustest_tcp      # you can change to your id
