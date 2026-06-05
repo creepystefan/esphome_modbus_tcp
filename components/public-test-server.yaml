@@ -2,7 +2,7 @@ modbus:
   - id: modbustesttcp
      host: 45.8.248.56
      port: 502
-   
+     type: TCP
 
 modbus_controller:
   - id: modbus_device
