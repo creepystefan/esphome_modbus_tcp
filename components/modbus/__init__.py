@@ -47,6 +47,7 @@ BASE_SCHEMA = cv.Schema(
         cv.Optional(
                 CONF_SEND_WAIT_TIME, default="250ms"
             ): cv.positive_time_period_milliseconds,
+            cv.Optional(CONF_ROLE, default="client"): cv.enum(MODBUS_ROLES),
         cv.Optional(
                 CONF_TURNAROUND_TIME, default="100ms"
             ): cv.positive_time_period_milliseconds,
@@ -74,7 +75,7 @@ RTU_VARIANT_SCHEMA = BASE_SCHEMA.extend(
     cv.Schema(
         {
             
-            cv.Optional(CONF_ROLE, default="client"): cv.enum(MODBUS_ROLES),
+            #cv.Optional(CONF_ROLE, default="client"): cv.enum(MODBUS_ROLES),
             cv.Optional(CONF_FLOW_CONTROL_PIN): pins.gpio_output_pin_schema,
             cv.Optional(CONF_DISABLE_CRC, default=False): cv.boolean,         
         }
@@ -111,7 +112,7 @@ async def to_code(config):
     await uart.register_uart_device(var, config)
     cg.add(var.set_send_wait_time(config[CONF_SEND_WAIT_TIME]))
     cg.add(var.set_turnaround_time(config[CONF_TURNAROUND_TIME]))
-    
+    cg.add(var.set_role(config[CONF_ROLE]))
 
     if config[CONF_TYPE] == "TCP":
           cg.add(var.set_host(str(config[CONF_IP_ADDRESS])))
@@ -126,7 +127,7 @@ async def to_code(config):
         cg.add(var.set_tcp_or_rtu(False))
         #await uart.register_uart_device(var, config)
         cg.add(var.set_tcp_or_rtu(False))
-        cg.add(var.set_role(config[CONF_ROLE]))
+        #cg.add(var.set_role(config[CONF_ROLE]))
         if CONF_FLOW_CONTROL_PIN in config:
             pin = await gpio_pin_expression(config[CONF_FLOW_CONTROL_PIN])
             cg.add(var.set_flow_control_pin(pin))
