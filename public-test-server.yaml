@@ -1,12 +1,29 @@
+uart:
+  id: uart_0
+  tx_pin: GPIO22
+  rx_pin: GPIO23
+  baud_rate: 9600
+
 modbus:
   - id: modbustesttcp
-     host: 45.8.248.56
-     port: 502
-     type: TCP
-
+    host: 45.8.248.56
+    type: TCP
+    #host: 192.168.178.46
+    #host: 45.8.248.56
+    port: 502
+    send_wait_time: 1s
+  - id: modbusrtu
+    send_wait_time: 2s
+    type: RTU
+    uart_id: uart_0
+ 
 modbus_controller:
   - id: modbus_device
     modbus_id: modbustesttcp
+    address: 10            # Unit-ID
+    update_interval: 10s   #default 60sec
+  - id: modbusdevicertu
+    modbus_id: modbusrtu
     address: 10            # Unit-ID
     update_interval: 10s   #default 60sec
 
