@@ -6,10 +6,8 @@ uart:
 
 modbus:
   - id: modbustesttcp
-    host: 45.8.248.56
     type: TCP
-    #host: 192.168.178.46
-    #host: 45.8.248.56
+    host: 45.8.248.56
     port: 502
     send_wait_time: 1s
   - id: modbusrtu
