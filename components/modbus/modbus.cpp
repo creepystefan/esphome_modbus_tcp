@@ -559,7 +559,7 @@ void Modbus::send(uint8_t address, uint8_t function_code, uint16_t start_address
 
   uint8_t data[MAX_FRAME_SIZE];
   size_t pos = 0;
-  //if (this->tcp_or_rtu_) {
+  if (this->tcp_or_rtu_) {
     Transaction_Identifier++;
     data[pos++] = Transaction_Identifier >> 8;
     data[pos++] = Transaction_Identifier >> 0;
@@ -572,7 +572,7 @@ void Modbus::send(uint8_t address, uint8_t function_code, uint16_t start_address
       }else {
         data[pos++] = 0x06;      // how many bytes next comes
       }
-   // }  
+  }  
 
   data[pos++] = address;
   data[pos++] = function_code;
