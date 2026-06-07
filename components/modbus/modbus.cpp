@@ -211,7 +211,7 @@ void Modbus::loop() {
   // First process all available incoming data.
   
   if (!this->tcp_or_rtu_) {
-  ESP_LOGD("RTU", "receive and Parse Byte");
+  //ESP_LOGD("RTU", "receive and Parse Byte");
   this->receive_and_parse_modbus_bytes_();
   }
 
