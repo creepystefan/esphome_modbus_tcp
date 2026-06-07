@@ -298,15 +298,7 @@ bool Modbus::parse_modbus_byte_(uint8_t byte) {
   const uint8_t *raw = &this->rx_buffer_[0];
 
 
- std::string res;
-      char buf[5];
-      //size_t data_len_print = at;
-  for (size_t i = 0; i <  at; i++) {
-      sprintf(buf, "%02X", raw[i]);
-      res += buf;
-      res += ":"; 
-  }
-  ESP_LOGD("modbus_tcp", "<<< Parsed: %s ", res.c_str());
+ 
   
 
 
