@@ -70,30 +70,29 @@ void ModbusTCP::setup() {
                       byte[0], byte[1], byte[2], byte[3], byte[4], 
                       byte[5], byte[6], byte[7], byte[8], res.c_str());
    
-   /*
-   if ((byte1[7] & 0x80) == 0x80) {
+   
+   if ((byte[7] & 0x80) == 0x80) {
       ESP_LOGE(TAG,"Error:"); 
-    if (byte1[8]  == 0x01) {
+    if (byte[8]  == 0x01) {
       ESP_LOGE(TAG,"Failure Code 0x01 ILLEGAL FUNCTION");
     }
-    if (byte1[8]  == 0x02) {
+    if (byte[8]  == 0x02) {
       ESP_LOGE(TAG,"Failure Code 0x02 ILLEGAL DATA ADDRESS");
     }
-    if (byte1[8]  == 0x03) {
+    if (byte[8]  == 0x03) {
       ESP_LOGE(TAG,"Failure Code 0x03 ILLEGAL DATA VALUE");
     }
-    if (byte1[8]  == 0x04) {
+    if (byte[8]  == 0x04) {
       ESP_LOGE(TAG,"Failure Code 0x04 SERVER FAILURE");
     }
-    if (byte1[8]  == 0x05) {
+    if (byte[8]  == 0x05) {
       ESP_LOGE(TAG,"Failure Code 0x05 ACKNOWLEDGE");
     }
-    if (byte1[8]  == 0x06) {
+    if (byte[8]  == 0x06) {
       ESP_LOGE(TAG,"Failure Code 0x06 SERVER BUSY");
     }
     return;
   }
-  */
    for (auto *device : this->devices_) {
           device->on_modbus_data(data);
     }
