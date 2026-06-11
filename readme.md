@@ -31,5 +31,5 @@ sensor:
 
 # useful link
 # https://modbus.pult.online/en.html
-# https://ipc2u.de/artikel/wissenswertes/detaillierte-beschreibung-des-modbus-tcp-protokolls-mit-befehlsbeispielen/
+- [Modbus TCP Protocol Description](https://ipc2u.de/artikel/wissenswertes/detaillierte-beschreibung-des-modbus-tcp-protokolls-mit-befehlsbeispielen/)
 # https://github.com/Gucioo/esphome_modbus_tcp_master
