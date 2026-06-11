@@ -1,5 +1,5 @@
 # ESPHome Modbus TCP
-# Framework ESP32(IDF) or esp8266(Arduino)
+# both Framework IDF and Arduino
 
 ```yaml
 external_components:
