@@ -45,44 +45,9 @@ void ModbusTCP::setup() {
       }
     }
   }
-/*
-  void Modbus::send_message(const uint8_t *send_byte) {
-    if (connected_ && client_->canSend()) {
-      //client_->write(message.c_str());
-      //client_->write(reinterpret_cast<const char*>(frame.data.get()), sizeof(frame.data));
 
-    
-   //for (size_t i = 0; i < sizeof(send_byte); i++) {
-    //sprintf(buf1, "%02X", send_byte[i]);
-
-      client_->write(reinterpret_cast<const char*>(send_byte), send_byte[5] + 6);
-      
-        
-     std::string res1;
-     char buf1[5];
-      
-     //for (size_t i = 12; i < send_byte[5] + 6; i++) {
-     for (size_t i = 0; i < 12; i++) {
-     sprintf(buf1, "%02X", send_byte[i]);
-     res1 += buf1;
-     res1 += ":";
-     }
-     ESP_LOGD("modbus_tcp", ">>> %02X%02X %02X%02X %02X%02X %02X %02X %02X%02X %02X%02X %s",
-                   send_byte[0], send_byte[1],  send_byte[2], send_byte[3], send_byte[4], send_byte[5],
-                   send_byte[6], send_byte[7],  send_byte[8], send_byte[9], send_byte[10], send_byte[11], res1.c_str());
-                  
-      } else {
-      ESP_LOGW("modbus_tcp", "Cannot send, not connected");
-    }
-  }
-*/
   void ModbusTCP::handle_message(uint8_t byte[256]) {
-    //const uint32_t now = App.get_loop_component_start_time();
-    //const uint32_t now = App.get_loop_component_start_time();
-
-    //uint8_t *bytedata = (uint8_t*)&byte;
-   //size_t len = sizeof(rx_data_);
-  
+      
   uint8_t bytelen_len = 9;
   size_t data_len = byte[8];
   uint8_t address = byte[6];
