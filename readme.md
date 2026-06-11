@@ -33,4 +33,4 @@ sensor:
 - [Public Test Server for Modbus TCP](https://modbus.pult.online/en.html)
 - [Modbus TCP Protocol Description](https://ipc2u.de/artikel/wissenswertes/detaillierte-beschreibung-des-modbus-tcp-protokolls-mit-befehlsbeispielen/)
 - [Uart TCP Bridge](https://github.com/nebulous/esphome-uart-link)
-# https://github.com/Gucioo/esphome_modbus_tcp_master
+- [Modbus TCP Master - Gucioo]https://github.com/Gucioo/esphome_modbus_tcp_master
