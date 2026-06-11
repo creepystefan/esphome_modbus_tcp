@@ -1,5 +1,5 @@
 # ESPHome Modbus TCP
-# both Framework IDF and Arduino
+- working with Framework IDF and Arduino
 
 ```yaml
 external_components:
