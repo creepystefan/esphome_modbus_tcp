@@ -150,10 +150,7 @@ void ModbusTCP::send(uint8_t address, uint8_t function_code, uint16_t start_addr
     ESP_LOGE(TAG, "send too many values %d max=%zu", number_of_entities, MAX_VALUES);
     return;
   }
-  // if (!client.connect(host_.c_str(), port_)) {
-  //    ESP_LOGE("modbus_tcp", "Failed to connect to Modbus server %s:%d", host_.c_str(), port_);
-  //    return;
-  //  }
+  
  std::vector<uint8_t> data_send;
  
       data_send.push_back(Transaction_Identifier >> 8);
@@ -198,10 +195,8 @@ res1 += buf1;
 res1 += ":";
 }
    if (connected_ && client_->canSend()) {
-    //if (connected_) {
     client_->write(reinterpret_cast<const char*>(data_send.data()), sizeof(data_send));
     Transaction_Identifier++;
-    //client.write(reinterpret_cast<const char*>(data_send.data()), sizeof(data_send));
     ESP_LOGD(TAG, ">>> %02X%02X %02X%02X %02X%02X %02X %02X %02X%02X %02X%02X %s",
                    data_send[0], data_send[1],  data_send[2], data_send[3], data_send[4], data_send[5],
                    data_send[6], data_send[7],  data_send[8], data_send[9], data_send[10], data_send[11], res1.c_str());
@@ -217,9 +212,9 @@ void ModbusTCP::send_raw(const std::vector<uint8_t> &payload) {
     return;
   }
 
- // this->write_array(payload);
+ if (connected_ && client_->canSend()) {
   client_->write(reinterpret_cast<const char*>(payload.data()), sizeof(payload));
-  //this->client.clear();
+ }
   waiting_for_response = payload[0];
   ESP_LOGV(TAG, "Modbus write raw: %s", format_hex_pretty(payload).c_str());
   last_send_ = millis();
