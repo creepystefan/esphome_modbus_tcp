@@ -1,4 +1,4 @@
-# Universal Modbus-TCP esphome
+# ESPHome Modbus TCP
 # Framework ESP32(IDF) or esp8266(Arduino)
 
 ```yaml
