@@ -7,20 +7,20 @@ external_components:
     refresh: 0s
 
 modbustcp:
-  - id: mod_bustest_tcp     # you can change to your id
+  - id: modbus_tcp_id     # you can change to your id
     host: 192.168.178.46    # Required
     port: 502               # Optional 502 is default
     send_wait_time: 250ms   # Optional 250ms is default
 
 modbustcp_controller:
-  - id: modbus_device_tcp
-    modbustcp_id: modbustest_tcp    # ID to modbustcp_id 
+  - id: modbus_tcp_controller_id
+    modbustcp_id: modbus_tcp_id     # ID to modbustcp_id 
     address: 10                     # Unit-ID
     update_interval: 5s             #default 60sec
   
 sensor:
   - platform: modbustcp_controller
-    modbustcp_controller_id: modbus_device_tcp   # ID to modbustcp_controller_id 
+    modbustcp_controller_id: modbus_tcp_controller_id   # ID to modbustcp_controller_id 
     name: YEAR
     address: 31
     value_type: U_WORD
