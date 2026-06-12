@@ -25,7 +25,16 @@ sensor:
     address: 31
     value_type: U_WORD
     register_type: read
-  
+
+switch:
+  - platform: modbustcp_controller
+    modbustcp_controller_id: modbus_tcp_controller_id
+    id: enable_load_test
+    register_type: coil
+    address: 745
+    name: "enable load test mode"
+    bitmask: 1
+
    
 ```
 
