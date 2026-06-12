@@ -18,6 +18,7 @@ modbustcp_controller:
     address: 10                     # Unit-ID
     update_interval: 5s             #default 60sec
 ```
+# Sensor
 ```yaml
 sensor:
   - platform: modbustcp_controller
@@ -27,6 +28,7 @@ sensor:
     value_type: U_WORD
     register_type: read
 ```
+# Switch
 ```yaml
 switch:
   - platform: modbustcp_controller
