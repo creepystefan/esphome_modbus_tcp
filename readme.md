@@ -17,7 +17,8 @@ modbustcp_controller:
     modbustcp_id: modbus_tcp_id     # ID to modbustcp_id 
     address: 10                     # Unit-ID
     update_interval: 5s             #default 60sec
-  
+```
+```yaml
 sensor:
   - platform: modbustcp_controller
     modbustcp_controller_id: modbus_tcp_controller_id   # ID to modbustcp_controller_id 
@@ -25,7 +26,8 @@ sensor:
     address: 31
     value_type: U_WORD
     register_type: read
-
+```
+```yaml
 switch:
   - platform: modbustcp_controller
     modbustcp_controller_id: modbus_tcp_controller_id
@@ -34,7 +36,6 @@ switch:
     address: 745
     name: "enable load test mode"
     bitmask: 1
-
    
 ```
 
