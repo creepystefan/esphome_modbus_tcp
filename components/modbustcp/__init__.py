@@ -7,13 +7,16 @@ import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.const import CONF_ADDRESS, CONF_ID
 import esphome.final_validate as fv
+from esphome.components import socket
 
 CONF_IP_ADDRESS = 'host'
 CONF_PORT = 'port'
 
-#cg.add_library('WiFi', '')
-
-  
+def _consume_sockets(config):
+    """Register socket needs for this component."""
+    # Example: 1 listening socket + 2 concurrent client connections
+    socket.consume_sockets(2, "modbustcp")(config)
+    return config
 
 modbustcp_ns = cg.esphome_ns.namespace("modbustcp")
 ModbusTCP = modbustcp_ns.class_("ModbusTCP", cg.Component)
