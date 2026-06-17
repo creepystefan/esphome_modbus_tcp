@@ -45,6 +45,7 @@ switch:
 number:
   - platform: modbustcp_controller
     id: your_number_id
+    modbustcp_controller_id: modbus_tcp_controller_id
     name: numbertest
     address: 48
     value_type: U_WORD
