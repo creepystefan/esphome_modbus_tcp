@@ -40,6 +40,16 @@ switch:
     bitmask: 1
    
 ```
+# Number
+```yaml
+number:
+  - platform: modbustcp_controller
+    id: your_number_id
+    name: numbertest
+    address: 48
+    value_type: U_WORD
+```
+
 
 # useful link
 - [Public Test Server for Modbus TCP](https://modbus.pult.online/en.html)
