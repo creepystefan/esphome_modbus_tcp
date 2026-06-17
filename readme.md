@@ -48,7 +48,7 @@ number:
     modbustcp_controller_id: modbus_tcp_controller_id
     name: numbertest
     address: 48
-    value_type: U_WORD
+    value_type: U_WORD    # see on modbus_controller number from esphome
 ```
 
 
