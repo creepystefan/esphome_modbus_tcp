@@ -206,7 +206,24 @@ void ModbusTCP::send(uint8_t address, uint8_t function_code, uint16_t start_addr
       data[pos++] = number_of_entities >> 8;
       data[pos++] = number_of_entities >> 0;
       }
-      Transaction_Identifier++;
+   if (payload != nullptr) {
+     if (function_code == 0x10 || function_code == 0x0f) {           // Write multiple
+      data[pos++] = payload_len;                                     // Byte count is required for write
+    } else {
+      payload_len = 2;  // Write single register or coil
+    }
+
+    if (payload_len + pos > MAX_FRAME_SIZE) {  // Check if send more as 256 bytes
+      ESP_LOGE(TAG, "Payload too large to send: %d bytes", payload_len);
+      return;
+    }
+    for (int i = 0; i < payload_len; i++) {
+      data[pos++] = payload[i];
+    }
+  }
+       
+       
+       Transaction_Identifier++;
  send_message(data);
  
 waiting_for_response = address;
