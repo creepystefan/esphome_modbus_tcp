@@ -36,14 +36,20 @@ class ModbusTCP :  public Component {
   void set_send_wait_time(uint16_t time_in_ms) { send_wait_time_ = time_in_ms; }
   void set_host(const std::string &host) { this->host_ = host; }
   void set_port(uint16_t port) { this->port_ = port; }
-  void handle_message(uint8_t byte[256]);
+  // data/len come straight from AsyncClient::onData — a single call is not guaranteed to
+  // contain exactly one Modbus frame (TCP may fragment or coalesce), so incoming bytes are
+  // appended to rx_buffer_ and complete frames are extracted from there.
+  void handle_message(const uint8_t *data, size_t len);
   void on_shutdown() override;
   void connect();
   //void send_message(const std::string& message);
   void send_message(const uint8_t *send_byte);
 
  protected:
- 
+
+  void process_buffer_();
+  void handle_frame_(const uint8_t *frame, size_t frame_len);
+
   AsyncClient* client_{nullptr};
   bool connected_{false};
   //bool parse_modbus_byte_(uint8_t byte);
@@ -51,12 +57,17 @@ class ModbusTCP :  public Component {
   uint32_t last_modbus_byte_{0};
   uint32_t last_send_{0};
   std::vector<ModbusDevice *> devices_;
+  std::vector<uint8_t> rx_buffer_;
   uint16_t Transaction_Identifier = 0;
+  // Transaction ID of the request we're currently waiting a response for. Used to drop stray/
+  // stale responses instead of blindly handing them to whatever command is at the front of the
+  // controller's queue.
+  uint16_t expected_transaction_id_{0};
   uint32_t last_attempt_{0};
   uint16_t port_;
   std::string host_;
-  
-   
+
+
 };
 
 class ModbusDevice {
