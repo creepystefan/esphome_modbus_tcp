@@ -32,8 +32,7 @@ void ModbusTCP::setup() {
 
     client_->onData([](void* arg, AsyncClient* c, void *data, size_t len) {
       auto* self = (ModbusTCP*)arg;
-      uint8_t *byte = reinterpret_cast<uint8_t*>(data);
-      self->handle_message(byte);
+      self->handle_message(reinterpret_cast<uint8_t*>(data), len);
     }, this);
   }
   
@@ -76,64 +75,104 @@ void ModbusTCP::setup() {
     }
   }
 
-  void ModbusTCP::handle_message(uint8_t byte[256]) {
-    //const uint32_t now = App.get_loop_component_start_time();
-    //const uint32_t now = App.get_loop_component_start_time();
+  // Appends the freshly-received bytes to rx_buffer_ and hands off to process_buffer_() to pull
+  // out however many complete frames are now available. A single onData call is not guaranteed
+  // to line up with frame boundaries — TCP can fragment a frame across several calls, or coalesce
+  // more than one frame (e.g. from a busy Modbus TCP proxy) into a single call.
+  void ModbusTCP::handle_message(const uint8_t *data, size_t len) {
+    if (len == 0) {
+      return;
+    }
+    rx_buffer_.insert(rx_buffer_.end(), data, data + len);
+    process_buffer_();
+  }
 
-    //uint8_t *bytedata = (uint8_t*)&byte;
-   //size_t len = sizeof(rx_data_);
-  
-  uint8_t bytelen_len = 9;
-  size_t data_len = byte[8];
-  uint8_t address = byte[6];
-  uint8_t function_code = byte[7];
-  
-  std::vector<uint8_t> data(byte + bytelen_len, byte + bytelen_len + bytelen_len + data_len);
-  bool found = false;  
-  
-  
-   std::string res;
-      char buf[5];
-      //size_t data_len = byte[8];
-  for (size_t i = 9; i < data_len + 9; i++) {
+  // Extracts and dispatches every complete Modbus TCP ADU currently sitting in rx_buffer_,
+  // leaving any trailing partial frame in the buffer for the next call.
+  void ModbusTCP::process_buffer_() {
+    static const size_t MBAP_HEADER_LEN = 7;  // transaction id(2) + protocol id(2) + length(2) + unit id(1)
+    static const size_t MAX_FRAME_LEN = 260;  // Modbus TCP ADUs are capped well below this
+
+    while (true) {
+      if (rx_buffer_.size() < MBAP_HEADER_LEN) {
+        return;  // not enough for a header yet
+      }
+
+      uint16_t length_field = (uint16_t(rx_buffer_[4]) << 8) | rx_buffer_[5];
+      size_t frame_len = 6 + length_field;  // total ADU length, per the MBAP length field
+
+      if (length_field == 0 || frame_len > MAX_FRAME_LEN) {
+        ESP_LOGW(TAG, "Implausible Modbus TCP frame length %zu, discarding %zu buffered bytes", frame_len,
+                 rx_buffer_.size());
+        rx_buffer_.clear();
+        return;
+      }
+
+      if (rx_buffer_.size() < frame_len) {
+        return;  // frame not fully received yet
+      }
+
+      handle_frame_(rx_buffer_.data(), frame_len);
+      rx_buffer_.erase(rx_buffer_.begin(), rx_buffer_.begin() + frame_len);
+    }
+  }
+
+  void ModbusTCP::handle_frame_(const uint8_t *byte, size_t frame_len) {
+    uint16_t transaction_id = (uint16_t(byte[0]) << 8) | byte[1];
+
+    std::string res;
+    char buf[5];
+    for (size_t i = 8; i < frame_len; i++) {
       sprintf(buf, "%02X", byte[i]);
       res += buf;
-      res += ":"; 
+      res += ":";
+    }
+
+    ESP_LOGD("modbus_tcp", " <<< %02X%02X %02X%02X %02X%02X %02X %02X %s ", byte[0], byte[1], byte[2], byte[3],
+             byte[4], byte[5], byte[6], byte[7], res.c_str());
+
+    if (transaction_id != expected_transaction_id_) {
+      // Late/stray response (e.g. arrived after the controller already gave up and moved on to
+      // the next command) or a response meant for another client multiplexed through a proxy.
+      // Decoding it as if it belonged to the current pending command would silently hand
+      // garbage values to whichever sensor is currently waiting. Drop it instead.
+      ESP_LOGW(TAG, "Ignoring Modbus response with unexpected transaction id 0x%04X (expected 0x%04X)",
+               transaction_id, expected_transaction_id_);
+      return;
+    }
+
+    if ((byte[7] & 0x80) == 0x80) {
+      ESP_LOGE(TAG, "Error: ");
+      if (frame_len > 8) {
+        switch (byte[8]) {
+          case 0x01: ESP_LOGE(TAG, "Failure Code 0x01 ILLEGAL FUNCTION"); break;
+          case 0x02: ESP_LOGE(TAG, "Failure Code 0x02 ILLEGAL DATA ADDRESS"); break;
+          case 0x03: ESP_LOGE(TAG, "Failure Code 0x03 ILLEGAL DATA VALUE"); break;
+          case 0x04: ESP_LOGE(TAG, "Failure Code 0x04 SERVER FAILURE"); break;
+          case 0x05: ESP_LOGE(TAG, "Failure Code 0x05 ACKNOWLEDGE"); break;
+          case 0x06: ESP_LOGE(TAG, "Failure Code 0x06 SERVER BUSY"); break;
+        }
+      }
+      return;
+    }
+
+    if (frame_len < 9) {
+      ESP_LOGW(TAG, "Modbus response too short to contain a byte count (%zu bytes), discarding", frame_len);
+      return;
+    }
+
+    size_t data_len = byte[8];
+    if (9 + data_len > frame_len) {
+      ESP_LOGW(TAG, "Modbus response byte count (%zu) exceeds frame length (%zu), discarding", data_len, frame_len);
+      return;
+    }
+
+    std::vector<uint8_t> data(byte + 9, byte + 9 + data_len);
+    for (auto *device : this->devices_) {
+      device->on_modbus_data(data);
+    }
   }
-  
-  ESP_LOGD("modbus_tcp", " <<< %02X%02X %02X%02X %02X%02X %02X %02X %02X %s ",
-                      byte[0], byte[1], byte[2], byte[3], byte[4], 
-                      byte[5], byte[6], byte[7], byte[8], res.c_str());
-   
-   
-   if ((byte[7] & 0x80) == 0x80 || (byte[7] & 0x81) == 0x81) {
-      ESP_LOGE(TAG,"Error: "); 
-    if (byte[8]  == 0x01) {
-      ESP_LOGE(TAG,"Failure Code 0x01 ILLEGAL FUNCTION");
-    }
-    if (byte[8]  == 0x02) {
-      ESP_LOGE(TAG,"Failure Code 0x02 ILLEGAL DATA ADDRESS");
-    }
-    if (byte[8]  == 0x03) {
-      ESP_LOGE(TAG,"Failure Code 0x03 ILLEGAL DATA VALUE");
-    }
-    if (byte[8]  == 0x04) {
-      ESP_LOGE(TAG,"Failure Code 0x04 SERVER FAILURE");
-    }
-    if (byte[8]  == 0x05) {
-      ESP_LOGE(TAG,"Failure Code 0x05 ACKNOWLEDGE");
-    }
-    if (byte[8]  == 0x06) {
-      ESP_LOGE(TAG,"Failure Code 0x06 SERVER BUSY");
-    }
-    return;
-  }
-  
-   for (auto *device : this->devices_) {
-          device->on_modbus_data(data);
-    }
-   }
- 
+
   void ModbusTCP::on_shutdown() {
     if (client_) {
       client_->close();
@@ -223,9 +262,10 @@ void ModbusTCP::send(uint8_t address, uint8_t function_code, uint16_t start_addr
   }
        
        
+       expected_transaction_id_ = Transaction_Identifier;
        Transaction_Identifier++;
  send_message(data);
- 
+
 waiting_for_response = address;
 last_send_ = millis();
 }
@@ -237,7 +277,7 @@ void ModbusTCP::send_raw(const std::vector<uint8_t> &payload) {
   }
 
  // this->write_array(payload);
-  client_->write(reinterpret_cast<const char*>(payload.data()), sizeof(payload));
+  client_->write(reinterpret_cast<const char*>(payload.data()), payload.size());
   //this->client.clear();
   waiting_for_response = payload[0];
   ESP_LOGV(TAG, "Modbus write raw: %s", format_hex_pretty(payload).c_str());
