@@ -21,7 +21,9 @@ modbus:   # Original from ESP-Home
 modbus_controller:  original from ESP-Home
   
 ```
- 
+
+ #
+ # old version
 ```yaml
 external_components:
   - source: github://creepystefan/esphome_tcp
