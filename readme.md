@@ -5,6 +5,8 @@
 external_components:
   - source: github://creepystefan/esphome_tcp
     refresh: 0s
+  - source: github://Bascht74/esphome-tcp-uart
+    components: [tcp_uart]
 
 modbustcp:
   - id: modbus_tcp_id     # you can change to your id
