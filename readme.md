@@ -7,17 +7,19 @@ external_components:
   - source: github://Bascht74/esphome-tcp-uart
     components: [tcp_uart]
 
-modbus:
-  - id: modbus_tcp_id     # you can change to your id
-    host: 192.168.178.46    # Required
-    port: 502               # Optional 502 is default
-    send_wait_time: 250ms   # Optional 250ms is default
+tcp_uart:
+  - id: remote_serial
+    host: IP-ADRESS to Modbus Device
+    port: 502
+    protocol: modbus
 
-modbus_controller:
-  - id: modbus_tcp_controller_id
-    modbustcp_id: modbus_tcp_id     # ID to modbustcp_id 
-    address: 10                     # Unit-ID
-    update_interval: 5s             #default 60sec
+modbus:   # Original from ESP-Home
+  - id: modbus_bus
+    uart_id: remote_serial
+
+
+modbus_controller:  original from ESP-Home
+  
 ```
  
 ```yaml
