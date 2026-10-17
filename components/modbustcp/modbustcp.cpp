@@ -21,7 +21,7 @@ void ModbusTCP::setup() {
       auto* self = (ModbusTCP*)arg;
       ESP_LOGW("tcp", "Disconnected, will retry...");
       self->connected_ = false;
-      self->last_attempt_ = 0;
+      self->last_attempt_ = millis();  // start the 5 s backoff now; 0 made loop() reconnect at once
     }, this);
 
     client_->onError([](void* arg, AsyncClient* c, int8_t err) {
